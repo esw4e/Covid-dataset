@@ -3,13 +3,15 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
-import plotly_express as px
 import plotly.graph_objs as go
 import pandas as pd
 
+#Loading the Dataframe from the Project folder
 df = pd.read_csv('../new_coviddataset.csv')
-
+#Generation of the Options for the Dropdown Menu
 dropdown_option = [{"label":country, "value":country} for country in df['location'].unique()]
+
+#Initialization of the App
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP,"https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"])
 
 app.layout = dbc.Container(
@@ -59,6 +61,7 @@ app.layout = dbc.Container(
                         dbc.Col(
                             [
                                 html.H4('Cases before and after vaccination'),
+                                #Dropdown Menu for the choosing of the Country
                                 dcc.Dropdown(
                                     id="dropdown",
                                     options=dropdown_option,
@@ -69,6 +72,7 @@ app.layout = dbc.Container(
                             width={"size": 4}
                         ),
                         dbc.Col(
+                            #Checklist for the choosing of the Requested Data
                             dcc.Checklist(
                                 id="checklist",
                                 options=[
@@ -145,16 +149,19 @@ app.layout = dbc.Container(
 )
 
 @app.callback(
+   #Callback option to generate the Values from the Checkboxes and Dropdown Menu
     Output("graph", "figure"),
     Input("dropdown", "value"),
     Input("checklist", "value")
 )
+# Generation of the Chart with Multiple Lines in the Graph
 def update_line_chart(country, selected_dataset):
+    #Editing of the DataFrame to request only the choosen Country
     df_edit = df.query(f"location == '{country}'")
 
     traces = []
 
-
+    # Creation of all the "lines" choosen based on the Datapoints in the Checkboxes
     for dataset in selected_dataset:
         trace = go.Scatter(
             x=df_edit['date'],
@@ -163,17 +170,17 @@ def update_line_chart(country, selected_dataset):
             name=dataset
         )
         traces.append(trace)
-        data = [trace]
 
+    # Creation of the Layout
     layout = go.Layout(
         title = f'{dataset} for {country}',
         xaxis={'title': 'Date'},
         yaxis={'title': dataset}
     )
+    # Making of the Figure with the different lines
     fig = go.Figure(data=traces, layout=layout)
-    graph = dcc.Graph(figure=fig, style={'width': '1250px'})
 
-
+    # Returning the figure to Output "graph"
     return fig
 
 if __name__ == '__main__':
