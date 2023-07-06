@@ -4,8 +4,12 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 import plotly_express as px
+import plotly.graph_objs as go
 import pandas as pd
 
+df = pd.read_csv('../new_coviddataset.csv')
+
+dropdown_option = [{"label":country, "value":country} for country in df['location'].unique()]
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP,"https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"])
 
 app.layout = dbc.Container(
@@ -57,24 +61,25 @@ app.layout = dbc.Container(
                                 html.H4('Cases before and after vaccination'),
                                 dcc.Dropdown(
                                     id="dropdown",
-                                    options=[
-                                        {"label": "Asia", "value": "Asia"},
-                                        {"label": "Europe", "value": "Europe"},
-                                        {"label": "Africa", "value": "Africa"},
-                                        {"label": "Americas", "value": "Americas"},
-                                        {"label": "Oceania", "value": "Oceania"}
-                                    ],
-                                    value=["Americas", "Oceania"],
-                                    multi=True
-                                )
+                                    options=dropdown_option,
+                                    value='Afghanistan'
+                                ),
+                                html.Div(id='graph_container')
                             ],
                             width={"size": 4}
                         ),
                         dbc.Col(
                             dcc.Checklist(
                                 id="checklist",
-                                options=["Asia", "Europe", "Africa", "Americas", "Oceania"],
-                                value=["Americas", "Oceania"],
+                                options=[
+                                    {'label': 'Total Cases', 'value': 'total_cases'},
+                                    {'label': 'Total Deaths', 'value': 'total_deaths'},
+                                    {'label': 'Population', 'value': 'population'},
+                                    {'label': 'Fully Vacinations', 'value': 'people_fully_vaccinated'},
+                                    {'label': 'Total Cases per Million', 'value': 'total_cases_per_million'},
+                                    {'label': 'Total deaths per Million', 'value': 'total_deaths_per_million'}
+                                ],
+                                value=['total_cases'],
                                 inline=False
                             ),
                             width={"size": 4, "offset": 4}
@@ -117,7 +122,7 @@ app.layout = dbc.Container(
                                     [
                                         html.H5("Authors", className="card-title"),
                                          html.Img(
-                                            src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2611557.png&w=350&h=254",
+                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/HNU-Logo.svg/1200px-HNU-Logo.svg.png",
                                             alt="Author Image",
                                             className="card-img",
                                             style={'max-width': '10%', 'height': 'auto'}
@@ -144,10 +149,31 @@ app.layout = dbc.Container(
     Input("dropdown", "value"),
     Input("checklist", "value")
 )
-def update_line_chart(continent, continents):
-    df = px.data.gapminder().query(f"continent in {continent}")
-    mask = df.continent.isin(continents)
-    fig = px.line(df[mask], x="year", y="lifeExp", color='country')
+def update_line_chart(country, selected_dataset):
+    df_edit = df.query(f"location == '{country}'")
+
+    traces = []
+
+
+    for dataset in selected_dataset:
+        trace = go.Scatter(
+            x=df_edit['date'],
+            y=df_edit[dataset],
+            mode='lines',
+            name=dataset
+        )
+        traces.append(trace)
+        data = [trace]
+
+    layout = go.Layout(
+        title = f'{dataset} for {country}',
+        xaxis={'title': 'Date'},
+        yaxis={'title': dataset}
+    )
+    fig = go.Figure(data=traces, layout=layout)
+    graph = dcc.Graph(figure=fig, style={'width': '1250px'})
+
+
     return fig
 
 if __name__ == '__main__':
