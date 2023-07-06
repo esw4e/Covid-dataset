@@ -6,10 +6,10 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import pandas as pd
 
-#Loading the Dataframe from the Project folder
-df = pd.read_csv('../new_coviddataset.csv')
-#Generation of the Options for the Dropdown Menu
-dropdown_option = [{"label":country, "value":country} for country in df['location'].unique()]
+# Loading the Dataframe from the CSV file
+df = pd.read_csv('webpage/new_coviddataset.csv')
+# Generation of the Options for the Dropdown Menu
+dropdown_option = [{"label": country, "value": country} for country in df['location'].unique()]
 
 #Initialization of the App
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP,"https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"])
@@ -65,7 +65,7 @@ app.layout = dbc.Container(
                                 dcc.Dropdown(
                                     id="dropdown",
                                     options=dropdown_option,
-                                    value='Afghanistan'
+                                    value='Singapore'
                                 ),
                                 html.Div(id='graph_container')
                             ],
@@ -80,8 +80,8 @@ app.layout = dbc.Container(
                                     {'label': 'Total Deaths', 'value': 'total_deaths'},
                                     {'label': 'Population', 'value': 'population'},
                                     {'label': 'Fully Vacinations', 'value': 'people_fully_vaccinated'},
-                                    {'label': 'Total Cases per Million', 'value': 'total_cases_per_million'},
-                                    {'label': 'Total deaths per Million', 'value': 'total_deaths_per_million'}
+                                    {'label': 'Total Tests', 'value': 'total_tests'},
+                                    {'label': 'Total Boosters', 'value': 'total_boosters'}
                                 ],
                                 value=['total_cases'],
                                 inline=False
