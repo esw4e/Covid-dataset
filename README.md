@@ -14,7 +14,7 @@ For that the Webbased Application uses a Dropdown Menu to choose the country the
 ## Data Processing 
 For processing and cleaning the data and removing null values and unwanted columns, Pandas library was used to make changes to the existing csv file.
 ## Front-End
-
+  In the frontend, we built an intuitive and interactive interface using Dash and Bootstrap. Users can easily navigate through dropdown menus and checkboxes to select specific countries and data points. Dynamic line charts visualize the progression of COVID-19 cases and vaccination impact. Engaging card components with animations provide concise information about the epidemic and its global impact. Our frontend offers a seamless and informative experience for exploring COVID-19 data.
 ## Back-End
 The main part of the Back-End is the generation of the Multilayered Graphs based on the options choosen of the Checkboxes. 
 
