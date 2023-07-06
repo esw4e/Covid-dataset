@@ -6,6 +6,10 @@ Dino Azizovic, Shaheer Waqar, Alexander Schäfer
 We wanted to show the impact of the global Covid-19 Pandemic based on collected Data over the last 4 Years. For that we choose a Dataset from the [Our World in Data](https://ourworldindata.org/coronavirus). 
 The Dataset had an overwhelming amount of options too choose from where we at the end decided to include the Data only from the Columns of "Total Cases, Total Deaths, Population, Fully Vacinations, Total Cases Per Million and Total Deaths Per Million.
 
+## Function
+The Graphs are Variable Drawn based on the choosing of the Costumer. 
+
+For that the Webbased Application uses a Dropdown Menu to choose the country the Data is from and a Checklist to choose the wished data that the customer wants to see.
 
 ## Data Processing 
 
