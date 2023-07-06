@@ -12,7 +12,7 @@ The Graphs are Variable Drawn based on the choosing of the Costumer.
 For that the Webbased Application uses a Dropdown Menu to choose the country the Data is from and a Checklist to choose the wished data that the customer wants to see.
 
 ## Data Processing 
-
+For processing and cleaning the data and removing null values and unwanted columns, Pandas library was used to make changes to the existing csv file.
 ## Front-End
 
 ## Back-End
