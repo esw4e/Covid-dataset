@@ -25,4 +25,5 @@ afterwards the Figure is returned to the HTML Output call for the Graph to show 
 
 ## Sources
 Dataset: [Our World in Data](https://ourworldindata.org/coronavirus), last seen: 05/07/2023
+
 Dash + Plotly Information: [Plotly](https://dash.plotly.com)
