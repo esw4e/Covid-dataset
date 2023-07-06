@@ -173,9 +173,9 @@ def update_line_chart(country, selected_dataset):
 
     # Creation of the Layout
     layout = go.Layout(
-        title = f'{dataset} for {country}',
+        title = f'Dataset of {country}',
         xaxis={'title': 'Date'},
-        yaxis={'title': dataset}
+        yaxis={'title': 'Datasets'}
     )
     # Making of the Figure with the different lines
     fig = go.Figure(data=traces, layout=layout)
