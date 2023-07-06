@@ -1,5 +1,4 @@
 # Covid-dataset
-##
 Authors: 
 Dino Azizovic, Shaheer Waqar, Alexander Schäfer
 
