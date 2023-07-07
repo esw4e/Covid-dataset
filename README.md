@@ -13,6 +13,7 @@ Used Librarys:
 1. Download the repository from GitHub.
 2. Open the repository in your Python supported IDE
 3. Install the Librarys through requirements
+
    ```pip install -r requirements.txt```
 5. Run through the IDE -> a Localhost adress will be generated in the console
 
