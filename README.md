@@ -13,7 +13,8 @@ Used Librarys:
 1. Download the repository from GitHub.
 2. Open the repository in your Python supported IDE
 3. Install the Librarys through requirements
-4. Run through the IDE -> a Localhost adress will be generated in the console
+   pip install -r requirements.txt
+5. Run through the IDE -> a Localhost adress will be generated in the console
 
 ## Motivation
 We wanted to show the impact of the global Covid-19 Pandemic based on collected Data over the last 4 Years. For that we choose a Dataset from the [Our World in Data](https://ourworldindata.org/coronavirus). 
